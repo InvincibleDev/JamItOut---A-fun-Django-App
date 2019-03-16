@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+	<meta charset="utf-8">
+	<title>{{ jamdet.Title }}</title>
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Margarine|Roboto+Condensed|Sniglet" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <style>
+    div.autoclass {
+      overflow-y: auto;
+      max-height:500px;
+    }
+  </style>
+</head>
+<body>
+<!-- navbar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm bg-white rounded">
+		<div class="container ">
+	<a class="navbar-brand" href="#"><img src="{% static 'MyPost.png' %}" style="width:120px;height:25px;margin-left:10px;" alt="JamItOut-logo"></a>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		{% if request.user.is_authenticated %}
+		<ul class="nav navbar-nav ml-auto">
+
+			<li class="nav-item">
+				<!-- <button type="button" name="button" data-toggle="modal" data-target="#myModal">Start Jam</button> -->
+				<!-- <a class="nav-text-dark nav-active "style="color:	#7CFC00; " href="#myModal" data-toggle="modal" >Start Jam</a> -->
+			</li>
+			<li class="nav-item">
+				<a class="nav-text-dark " style="color:black;margin-left:20px;" href="/dashboard/">Dashboard</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-text-dark" style="color:#5d147c;margin-left:20px;" href="/logout/">Logout</a>
+			</li>
+		</ul>
+		{% endif %}
+	</div>
+	</div>
+</nav>
+<!-- navbar End -->
+
+
+<div class="container margin-top:20px">
+  <br>
+  <div class="col-sm-12" style="margin:10px">
+  <h3  style="color:brown;display:inline">"{{ jamdet.Title }}"
+    <small class="text-muted"> by {{ jamdet.Creator }}  </small>
+  </h3>
+
+  {%if request.user == jamdet.Creator%}
+    <a style="display:inline;float:right" class="btn btn-card btn-danger" href="/stopJam/{{ jamdet.id }}/"> Stop Jam</a>
+  {%endif%}
+  </div>
+  <br>
+  <div class="autoclass border rounded " style="box-shadow: 0 2px 7px 0.5px #8d869b; padding:30px; margin:20px">
+  {% for line in jamlines %}
+  <!-- <span>{{ line.LineNo }}     </span> -->
+      <p style="display:inline;margin-left:70px; font-family:'Margarine', cursive;">{{ line.Line }}</p>
+       <span style="float:right" class="text-muted">  -  {{ line.Contributer }} </span>
+       <br><br>
+  {% endfor %}
+  </div>
+
+  {% if allowed %}
+  <form role="form" action="/newline/" method="post">
+    {%csrf_token%}
+  <div class="form-row align-items-cente" style="margin:20px">
+    <div class="col-sm-10 col-xs-11" >
+      <input type="text" class="form-control" maxlength="100"  name="newline"  placeholder="Enter Your Line">
+      <input type="hidden" name="id" value="{{ jamdet.id }}">
+      <input type="hidden" name="lno" value="{{ line_no }}">
+    </div>
+    <div class="col-sm-2 col-xs-1">
+      <button type="submit" class="btn btn-primary mb-2">Add Line</button>
+    </div>
+  </div>
+  </form>
+  {% endif %}
+
+  {% if not jamdet.Status %}
+  <div class="alert alert-dark" style="margin:100px;">
+    <p style="display:inline">This Jam is Closed by the creator. Try exploring other JAMS to Contribute </p><a type="button" style="display:inline;margin-left:50px"  class="btn btn-md btn-success" href="/displayJam/">Explore Jams</a>
+  </div>
+  {% elif line_no == jamdet.NoLines or line_no == 100 %}
+  <div class="alert alert-dark" style="margin:100px;">
+    <p style="display:inline">This Jam has reached the maximum allowed lines. Try exploring other JAMS to Contribute </p><a style="display:inline;margin-left:50px" type="button" class="btn btn-md btn-success"  href="/displayJam/">Explore Jams</a>
+  </div>
+  {% elif not allowed %}
+  <div class="alert alert-dark" style="margin:100px;">
+    <p style="display:inline">You have already contributed to this JAM. Try exploring other JAMS to Contribute </p><a  style="display:inline; margin-left:50px" type="button" class="btn btn-md btn-success" href="/displayJam/">Explore Jams</a>
+  </div>
+  {% endif %}
+</div>
+  </body>
+</html>

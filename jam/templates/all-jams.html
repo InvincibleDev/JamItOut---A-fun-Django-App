@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+<!-- <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet"> -->
+<style media="screen">
+	a{
+		color:black;
+	}
+</style>
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm bg-white rounded">
+		<div class="container ">
+	<a class="navbar-brand" href="#"><img src="{% static 'MyPost.png' %}" style="width:120px;height:25px;margin-left:10px;" alt="JamItOut-logo"></a>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		{% if request.user.is_authenticated %}
+		<ul class="nav navbar-nav ml-auto">
+
+			<li class="nav-item">
+				<!-- <button type="button" name="button" data-toggle="modal" data-target="#myModal">Start Jam</button> -->
+				<!-- <a class="nav-text-dark nav-active "style="color:	#7CFC00; " href="#myModal" data-toggle="modal" >Start Jam</a> -->
+			</li>
+			<li class="nav-item">
+				<a class="nav-text-dark " style="color:black;margin-left:20px;" href="/dashboard/">Dashboard</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-text-dark" style="color:#5d147c;margin-left:20px;" href="/logout/">Logout</a>
+			</li>
+		</ul>
+		{% endif %}
+	</div>
+	</div>
+</nav>
+
+
+
+<br><br>
+<!--Your Jams-->
+<div class="container" >
+	<div class="row">
+	{% for jam in my_jams %}
+<div class="col-sm-7 col-xs-5 col-lg-3 d-flex" style="margin-bottom:40px;">
+	<a href="/readJam/{{ jam.id }}/">
+	<div class="card-deck h-100" style="color:inherit">
+  <div class="card d-flex">
+    <img style="height:150px;width:255px" src="{%get_media_prefix %}{{ jam.cover }}" class="card-img-top" alt="cover image">
+    <div class="card-body">
+      <h5 class="card-title" style="color:green">{{jam.Title}}<small class="text-muted">  by {{ jam.Creator }}  </small></h5>
+			<hr>
+	 <!-- <p>No of Lines : {{jam.NoLines}}</p> -->
+	 <p class="text-muted" style="font-size:12px">Started : {{jam.Start_date|timesince}} ago</p>
+	 {% if not jam.Status %}
+	 <p class="text-muted" style="font-size:12px">Ended : {{jam.End_date|timesince}} ago</p>
+	 {% endif %}
+      <!-- <p class="card-text" style="float:right">No of Lines : {{jam.NoLines}}</p>
+			<p class="card-text">Creator : {{jam.Creator}}</p>
+			<p class="card-text">Started On : {{jam.Start_date.date|timesince}} ago</p> -->
+    </div>
+    <div class="card-footer">
+			{% if jam.Status %}
+			<small class="card-text" style="color:green">Status : Open</small>
+			{% else %}
+			<small class="card-text" style="color:red">Status : Close</small>
+			{% endif %}
+			{% for line in lastlineslist %}
+			{% if line.Jamid == jam %}
+			<br>
+        <small class="card-text text-muted" style="font-size:12px">Last Line: {{line.Line}}</small>
+			{% endif %}
+			{% endfor %}
+    </div>
+  </div>
+</div>
+</div>
+
+</a>
+
+
+{% endfor %}
+</div>
+</div>
+<!--end of ur jam-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

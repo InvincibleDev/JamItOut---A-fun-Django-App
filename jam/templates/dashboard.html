@@ -133,7 +133,7 @@
 			{% for line in lastlineslist %}
 			{% if line.Jamid == jam %}
 			<br>
-      <small class="card-text text-muted" style="font-size:12px">Last Line: {{line.Line}}</small>
+      <small class="card-text " style="font-family:'Margarine', cursive;font-size:14px">Last Line: {{line.Line}}</small>
 			{% endif %}
 			{% endfor %}
     </div>
@@ -172,7 +172,7 @@
     <tbody>
       <tr>
         <td>{{ line.Jamid.Title }}</td>
-        <td>{{ line.Line }}</td>
+        <td class="text-info" style="font-size:19px;font-family:'Margarine', cursive;">{{ line.Line }}</td>
         <td>{{ line.LineNo }}</td>
 				<td><a class="btn btn-card btn-success" href="/readJam/{{ line.Jamid.id }}/"> Read Jam </a></td>
       </tr>

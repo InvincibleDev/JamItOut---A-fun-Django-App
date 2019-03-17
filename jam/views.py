@@ -105,13 +105,26 @@ def display_jams(request):
 def stop_jam(request,jam_id):
     now=datetime.now()
     jam = Jam.objects.get(id=jam_id)
-    print(jam.Creator)
     if request.user!=jam.Creator:
         return render(request,"error.html")
     jam.Status=False
     jam.End_date=now.date()
     jam.save()
     return redirect(f'/readJam/{jam.id}/')
+
+
+@login_required(login_url='/login/')
+def restartjam(request,jam_id):
+    jam = Jam.objects.get(id=jam_id)
+    if request.user!=jam.Creator:
+        return render(request,"error.html")
+    jam.Status=True
+    jam.End_date=None
+    jam.save()
+    print(jam)
+    return redirect(f'/readJam/{jam.id}/')
+
+
 
 @login_required(login_url='/login/')
 def new_line(request):

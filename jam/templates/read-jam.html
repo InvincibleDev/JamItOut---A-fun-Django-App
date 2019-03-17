@@ -48,9 +48,14 @@
     <small class="text-muted"> by {{ jamdet.Creator }}  </small>
   </h3>
 
-  {%if request.user == jamdet.Creator%}
+{%if request.user == jamdet.Creator%}
+		{% if jamdet.Status == False %}
+		<a style="display:inline;float:right" class="btn btn-card btn-success" href="/reopenJam/{{ jamdet.id }}/"> Reopen Jam</a>
+		{%endif%}
+		{% if jamdet.Status == True  %}
     <a style="display:inline;float:right" class="btn btn-card btn-danger" href="/stopJam/{{ jamdet.id }}/"> Stop Jam</a>
   {%endif%}
+{%endif%}
   </div>
   <br>
   <div class="autoclass border rounded " style="box-shadow: 0 2px 7px 0.5px #8d869b; padding:30px; margin:20px">
@@ -79,16 +84,16 @@
   {% endif %}
 
   {% if not jamdet.Status %}
-  <div class="alert alert-dark" style="margin:100px;">
-    <p style="display:inline">This Jam is Closed by the creator. Try exploring other JAMS to Contribute </p><a type="button" style="display:inline;margin-left:50px"  class="btn btn-md btn-success" href="/displayJam/">Explore Jams</a>
+  <div class="alert alert-dark" style="margin:100px;border-left: 5px solid ">
+    <p style="display:inline; font-size:12px;">This Jam is Closed by the creator. Try exploring other JAMS to Contribute </p><a type="button" style="display:inline;margin-left:50px"  class="btn btn-md btn-success" href="/displayJam/">Explore Jams</a>
   </div>
   {% elif line_no == jamdet.NoLines or line_no == 100 %}
-  <div class="alert alert-dark" style="margin:100px;">
-    <p style="display:inline">This Jam has reached the maximum allowed lines. Try exploring other JAMS to Contribute </p><a style="display:inline;margin-left:50px" type="button" class="btn btn-md btn-success"  href="/displayJam/">Explore Jams</a>
+  <div class="alert alert-dark" style="margin:100px;border-left: 5px solid ">
+    <p style="display:inline;font-size:12px;">This Jam has reached the maximum allowed lines. Try exploring other JAMS to Contribute </p><a style="display:inline;margin-left:50px" type="button" class="btn btn-md btn-success"  href="/displayJam/">Explore Jams</a>
   </div>
   {% elif not allowed %}
-  <div class="alert alert-dark" style="margin:100px;">
-    <p style="display:inline">You have already contributed to this JAM. Try exploring other JAMS to Contribute </p><a  style="display:inline; margin-left:50px" type="button" class="btn btn-md btn-success" href="/displayJam/">Explore Jams</a>
+  <div class="alert alert-dark" style="margin:100px;border-left: 5px solid ">
+    <p style="display:inline;font-size:12px;">You have already contributed to this JAM. Try exploring other JAMS to Contribute </p><a  style="display:inline; margin-left:50px" type="button" class="btn btn-md btn-success" href="/displayJam/">Explore Jams</a>
   </div>
   {% endif %}
 </div>

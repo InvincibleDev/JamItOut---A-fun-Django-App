@@ -48,8 +48,8 @@ def signUp(request):
 			login(request,user)
 			return redirect("/dashboard")
 		else:
-			return HttpResponse("user already Exists. Try other User Name")
-	return render(request,"signUp.html")
+			return render(request,"signIn.html",{'errorsign':"user already Exists. Try other User Name"})
+	return render(request,"signIn.html")
 
 
 @login_required(login_url='/login/')
@@ -103,9 +103,11 @@ def display_jams(request):
 
 @login_required(login_url='/login/')
 def stop_jam(request,jam_id):
-    print(jam_id)
     now=datetime.now()
     jam = Jam.objects.get(id=jam_id)
+    print(jam.Creator)
+    if request.user!=jam.Creator:
+        return render(request,"error.html")
     jam.Status=False
     jam.End_date=now.date()
     jam.save()

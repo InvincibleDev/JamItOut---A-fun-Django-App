@@ -6,7 +6,7 @@
     <title>JamItOut</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
       </head>
-  <body>
+  <body style="background-image: url('{% static 'bg1.png' %}') ">
 <!-- navbar -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm bg-white rounded">
 		<div class="container ">
@@ -17,7 +17,7 @@
 				  <a class="nav-text-dark nav-active" style="color:#5d147c;margin-left:20px;" href="/login/">Login</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-text-dark nav-active" style="color:#0680cc;margin-left:20px;" href="/signup/">SignUp</a>
+				<!-- <a class="nav-text-dark nav-active" style="color:#0680cc;margin-left:20px;" href="/signup/">SignUp</a> -->
 			</li>
 		</ul>
 	</div>
@@ -25,14 +25,14 @@
 </nav>
 <!-- navbar End -->
 
-<div class="container" >
+<div class="container " style="margin-top:150px;" >
   <div class="row">
-      <div class="col-auto"  style="margin-top:150px;display: inline;" >
+      <div class="col-lg-7 col-sm-7"  style="display: inline;" >
         <img  class="rounded" style="width:500px;height:300px; "src="{% static 'MyPost.jpg' %}" alt="">
       </div>
-      <div class="col-auto" style="margin-top:150px;display: inline;" >
-        <h2 class="text" style="margin:30px"> About</h2>
-          <p>JamItOut is a place for you to get creative.This is the place for your creativity</p>
+      <div class="col-lg-5 col-sm-5" style="display: inline;" >
+        <h2 class="text"> About</h2><br>
+          <p>JamItOut is a place for you to get creative. Start a POEM with one line and watch it getting filled by strangers.You can also help others complete their thoughts. Join the movement by <span> <a href="/signup/">signing up.</a></span></p>
       </div>
       </div>
 </div>

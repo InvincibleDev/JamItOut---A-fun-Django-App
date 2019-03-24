@@ -29,6 +29,6 @@ urlpatterns = [
     path('displayJam/', display_jams),
     path('stopJam/<int:jam_id>/',stop_jam ),
     path('newline/',new_line),
-    path('reopenJam/<int:jam_id>/',restartjam)
+    path('reopenJam/<int:jam_id>/',restartjam),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]

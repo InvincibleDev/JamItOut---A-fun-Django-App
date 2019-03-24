@@ -13,12 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path,include
-from jam.views import *
+from django.urls import path
+from django.conf.urls import url, include
+from .views import *
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('jam.urls'))
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('login/', signIn),
+    path('logout/', signOut),
+    path('signup/', signUp),
+    path('', home),
+    path('dashboard/', dashboard),
+    path('create/', create_jam),
+	path('readJam/<int:jam_id>/', read_jam, name="read"),
+    path('displayJam/', display_jams),
+    path('stopJam/<int:jam_id>/',stop_jam ),
+    path('newline/',new_line),
+    path('reopenJam/<int:jam_id>/',restartjam)
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+]

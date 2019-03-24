@@ -107,7 +107,8 @@
 	<div class="row">
 	{% for jam in my_jams %}
 	<div class="col-sm-7 col-xs-5 col-lg-3 d-flex" style="margin:10px">
-		<a href="/readJam/{{ jam.id }}/">
+		<!-- <a href="/readJam/{{ jam.id }}/"> -->
+		<a href="{% url 'read' jam_id=jam.id %}">
 		<div class="card-deck h-100" style="color:inherit">
 	  <div class="card d-flex">
 	    <img style="height:150px;width:255px" src="{%get_media_prefix %}{{ jam.cover }}" class="card-img-top" alt="cover image">

@@ -70,6 +70,7 @@ def create_jam(request):
         noLines=request.POST['noLines']
         start_line=request.POST['start_line']
         form_cover=request.FILES['coverImage']
+        print(request.FILES)
         now=datetime.now()
         if form_cover.name.endswith(".jpg") or form_cover.name.endswith(".png") or form_cover.name.endswith(".jpeg"):
             new_jam = Jam.objects.create(Title=jam_name, NoLines=noLines, Creator=request.user, Start_date=now.date(), cover=form_cover, Status=True)

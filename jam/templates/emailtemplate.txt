@@ -1,0 +1,3 @@
+Hello {{ user }}
+ Thanks for contributing to {{ jamname }} Jam
+Your line : {{ line }}

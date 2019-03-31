@@ -19,16 +19,18 @@ from .views import *
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
-    path('login/', signIn),
-    path('logout/', signOut),
+    path('login/', signIn,name="login"),
+    path('logout/', signOut,name="logout"),
     path('signup/', signUp),
     path('', home),
-    path('dashboard/', dashboard),
+    path('dashboard/', dashboard,name="dashboard"),
     path('create/', create_jam),
 	path('readJam/<int:jam_id>/', read_jam, name="read"),
     path('displayJam/', display_jams),
     path('stopJam/<int:jam_id>/',stop_jam ),
     path('newline/',new_line),
     path('reopenJam/<int:jam_id>/',restartjam),
+    path('oauthdone/',authdone),
+    # path('sendemail/<str:jamline>/<str:jamname>/',email),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]

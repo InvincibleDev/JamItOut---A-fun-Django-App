@@ -6,11 +6,24 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
+from django.template.loader import render_to_string,get_template
+from django.core.mail import send_mail,EmailMessage
+from django.conf import settings
+from django.template import Context
+
+import logging
+
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 
 
 def home(request):
     return render(request,"home.html")
+
+@login_required(login_url='/login/')
+def authdone(request):
+    return HttpResponse('auth done')
 
 def signIn(request):
     if request.method=='POST':
@@ -137,5 +150,31 @@ def new_line(request):
         print(id)
         jam=Jam.objects.get(id=id)
         JamLines.objects.create(Jamid=jam,LineNo=line_no,Line=line,Contributer=contributer)
+        status=email(contributer,line,jam.Title)
+        if not status:
+            logger.error('Email not sent to'+str(contributer))
         return redirect(f'/readJam/{jam.id}/')
     return redirect('/dashboard')
+
+
+
+def email(contributer,jamline,jamname):
+
+    ctx={
+        'user':contributer,
+        'line':jamline,
+        'jamname':jamname
+    }
+
+    message=get_template('emailtemplate.html').render(ctx)
+    subject = 'Your jam line is added'
+    # message = ' it  means a world to us '
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = ['ganeshdev933@gmail.com',]
+    try:
+        msg=EmailMessage( subject, message, email_from, recipient_list )
+        msg.content_subtype='html'
+        msg.send()
+        return True
+    except Exception as e:
+        return False

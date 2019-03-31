@@ -16,6 +16,12 @@
 			<li class="nav-item">
 				  <a class="nav-text-dark nav-active" style="color:#5d147c;margin-left:20px;" href="/login/">Login</a>
 			</li>
+      <li class="nav-item">
+          <a class="nav-text-dark nav-active" style="color:#5d147c;margin-left:20px;" href="{% url 'social:begin' 'github' %}">Login with GITHUB</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-text-dark nav-active" style="color:#5d147c;margin-left:20px;" href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a>    
+      </li>
 			<li class="nav-item">
 				<!-- <a class="nav-text-dark nav-active" style="color:#0680cc;margin-left:20px;" href="/signup/">SignUp</a> -->
 			</li>

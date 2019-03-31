@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,11 +24,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'vcw1dbm1en*h!lq914+gwt1zv)!#k$_s2d9mvt$i9(xq7p+e%='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["jamitout.ga" ]
+ALLOWED_HOSTS = []
 
-CSRF_COOKIE_SECURE = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'hawkeasy.com@gmail.com'
+EMAIL_HOST_PASSWORD = 'Hawkeasy123'
+
+#CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS='DENY'
 # Application definition
 
@@ -120,6 +129,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SOCIAL_AUTH_GITHUB_KEY = '1ff0467411a89cd3ebfa'
+SOCIAL_AUTH_GITHUB_SECRET = '62748fbc02c11d68b9bee31674b8d925e64ca35a'
+
+SOCIAL_AUTH_TWITTER_KEY = '2fxMsHZ9diTgdUbRIvro3dr8y'
+SOCIAL_AUTH_TWITTER_SECRET = 'fX0DTeeAkjp4LSBAlHC4zNhqaGaBC3UvomRhzunushTS2QjUxk'
+
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -145,3 +162,9 @@ STATIC_ROOT= os.path.join(BASE_DIR,'static')
 MEDIA_URL= '/media/'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'dashboard'
+
+django_heroku.settings(locals())

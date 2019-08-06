@@ -33,8 +33,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'hawkeasy.com@gmail.com'
-EMAIL_HOST_PASSWORD = 'Hawkeasy123'
+EMAIL_HOST_USER = 'gmail@gmail.com'
+EMAIL_HOST_PASSWORD = "password"
 
 #CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS='DENY'
@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jam',
-    #social login keliye
     'social_django',
 ]
 
@@ -61,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #social login keliye
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
@@ -79,7 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                #social login keliye
+                
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
@@ -129,11 +127,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SOCIAL_AUTH_GITHUB_KEY = '1ff0467411a89cd3ebfa'
-SOCIAL_AUTH_GITHUB_SECRET = '62748fbc02c11d68b9bee31674b8d925e64ca35a'
+SOCIAL_AUTH_GITHUB_KEY = os.environ["GITHUB_KEY"]
+SOCIAL_AUTH_GITHUB_SECRET = os.environ["GITHUB_SECRET"]
 
-SOCIAL_AUTH_TWITTER_KEY = '2fxMsHZ9diTgdUbRIvro3dr8y'
-SOCIAL_AUTH_TWITTER_SECRET = 'fX0DTeeAkjp4LSBAlHC4zNhqaGaBC3UvomRhzunushTS2QjUxk'
+SOCIAL_AUTH_TWITTER_KEY = os.environ["TWITTER_KEY"]
+SOCIAL_AUTH_TWITTER_SECRET = os.environ["TWITTER_SECRET"]
 
 
 
